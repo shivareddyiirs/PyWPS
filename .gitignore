@@ -1,6 +1,18 @@
 *.pyc
+*.pyo
 *.egg-info
-*.tmplc
-docs/build
-build
 dist
+build
+tmp
+.tox
+docs/_build
+
+# vim, mac os
+*.sw*
+.DS_Store
+.*.un~
+
+# git
+
+*.orig
+.coverage

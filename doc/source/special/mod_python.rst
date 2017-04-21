@@ -1,2 +1,0 @@
-PyWPS and Mod Python
-********************

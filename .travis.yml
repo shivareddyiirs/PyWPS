@@ -1,0 +1,53 @@
+language: python
+
+sudo: required
+dist: trusty
+
+python:
+  - "2.7"
+  - "3.5"
+
+git:
+  submodules: false
+
+addons:
+  apt:
+    packages:
+      - gdal-bin
+      - libgdal-dev
+      - libgdal1h
+      - libgdal1-dev
+      - libgeos-dev
+      - devscripts
+      - debhelper
+      - python-setuptools
+
+# Handle Git submodules yourself
+git:
+    submodules: false
+
+install:
+  - pip install pip --upgrade
+  - pip install .
+  - pip install -r requirements-gdal.txt
+  - pip install -r requirements-dev.txt
+  - pip install coveralls
+
+script:
+  - python -m unittest tests
+  - coverage run --source=pywps -m unittest tests
+  - flake8 pywps/
+
+after_success:
+  - coveralls
+  - debuild -b -uc -us
+
+# whitelist
+branches:
+  only:
+    - master
+
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#geopython"
